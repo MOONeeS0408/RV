@@ -21,6 +21,8 @@ public class Move : MonoBehaviour
     private Vector2 moveInput;
     private float rotateInput;
 
+    public Animator animator;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -58,6 +60,13 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // Revisa si el personaje se está moviendo
+        bool isMoving = moveInput.magnitude > 0;
+
+        // Actualiza el parámetro del Animator
+        animator.SetBool("isMoving", isMoving);
+
         isGrounded = characterController.isGrounded;
         if (isGrounded && velocity.y<0) 
         {
