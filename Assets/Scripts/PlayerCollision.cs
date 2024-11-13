@@ -1,18 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerCollision : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject defeatCanvas; 
+    public GameObject playerModel;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Enemy"))
+        {
+            ShowDefeat();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void ShowDefeat()
     {
-        
+        defeatCanvas.SetActive(true);
+
+        if (playerModel != null)
+        {
+            playerModel.SetActive(false);
+        }
+
+        Invoke("RestartLevel", 3f);
+    }
+
+    void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
